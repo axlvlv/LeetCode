@@ -20,32 +20,22 @@ convert("PAYPALISHIRING", 3)应当返回“PAHNAPLSIIGYIR”。
 
 /*
 Method
-P(1)         | A(5)         | H(9)   | N(13)
-A(2) P(4)    | L(6) S(8)    | I I    | G
-Y(3)         | I(7)         | R      |
+n=2时，字符串坐标变成zigzag的走法就是：（0，1）
 
-The size of every period is defined as "cycle"
-cycle = (2*nRows - 2), except nRows == 1.
+ 0 2 4 6
 
-cycle = 2 * 3 - 2 = 4
+ 1 3 5 7
+ 
+ n=3时的走法是：（0，1，2，3）
 
-In every period, every row has 2 elements, except the first row and the last row.
+ 0   4   8
+ 1 3 5 7 9
+ 2   6   10 
+ 
+ n=4时的走法是：（0，1，2，3，4，5）
 
-Suppose the current row is i, the index of the first element is j:
-
-j = i + cycle*k, k = 0, 1, 2, ...
-
-P = 1 + 4*0 = 1 A = 1 + 4*1 = 5 H = 1 + 4*2 = 9 N = 1 + 4*3 = 13 A = 2 + 4*0 = 2 Y = 3 + 4*0 = 3 L = 2 + 4*1 = 6
-
-The index of the second element is secondJ:
-
-secondJ = (j - i) + cycle - i
-
-(j-i) is the start of current period. (j-i) + cycle is the start of next period.
-j - i : 1-1 = 0; 5-1 = 4; 9 - 1= 8
-j - i + cycyle: 
-
-P = 2 - 2 + 4 - 2 = 2
-
-
-
+ 0    6     12
+ 1  5 7  11 13
+ 2 4  8 10  14
+ 3    9     15 
+发现长度永远是2n - 2;第一行和最后一行都只需要加一个字符。斜着的那条线的位置永远是当前列j + (2n - 2) - 2i (i 是行的Index从0开始）
