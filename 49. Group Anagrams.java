@@ -15,6 +15,13 @@ Note: All inputs will be in lower-case.
 /*
 Method
 我们将每个词排序后，根据这个键值，找到哈希表中相应的列表，并添加进去。
+/*
+
+/*
+时间复杂度
+假设我们有n个字符串，字符串最大长度是k，那么该算法的时间复杂度是O(nklogk)，
+其中O(klogk)是对每一个字符串排序（如果用线性算法也可以提高）。空间复杂度则是O(nk)，即hashmap的大小。
+/*
 
 /*
 Basic Java
