@@ -1,0 +1,74 @@
+/*
+Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place.
+
+只有在原始矩阵中为0的数字才能将相应行列置0。而原本非0的数字，即使由于同行或同列的0元素而被置0了，也不能将它相关的行列置0。
+即这种置0的操作没有传递性，
+/*
+
+/*
+Method
+1. O(mn)解法：克隆原来的matrix，然后扫描原来的matrix，遇到0，则在克隆版本中将对应的行列置0。
+2. O(m+n)解法：用两个bool数组O(n)和O(m)，分别记录每行和每列的是否需要被置0。最后根据这两个数组来置0整个矩阵。
+3. O(1)解法：用第0行和第0列来记录第1 ~ m-1行和第1 ~ n-1列是否需要置0。而用两个变量记录第0行和第0列是否需要置0。
+
+1. O(mn)
+One way around this is to keep a second matrix which flags the zero locations. 
+We would then do a second pass through the matrix to set the zeros.This would take O(MN) space.
+
+Do we really need O(MN) space? No. 
+Since we're going to set the entire row and column to zero, 
+we don't need to track that it was exactly cell [ 2] [ 4] (row 2, column 4). 
+We only need to know that row 2 has a zero somewhere, and column 4 has a zero somewhere.
+We'll set the entire row and column to zero anyway
+
+3.O(1)
+Use first row and first column as markers. 
+if matrix[i][j] = 0, mark respected row and col marker = 0; indicating
+that later this respective row and col must be marked 0;
+And because you are altering first row and collumn, 
+you need to  have two variables to track their own status. 
+So, for ex, if any one of the first row is 0, fr = 0, 
+and at the end set all first row to 0;
+首先把整个Matrix全部遍历了一遍， 如果有0， 那就把行和列的开头都变成0，并且记录是不是第一行和第一列中有0，有的话变成true
+下一个部分再循环一遍不是开头的 只要第一行和第一列有true 那就变成0
+循环完了整个矩阵，看开头如果被保存为fc, fr 为true的，就把第一行或者第一列也全部变成0
+一定要注意 fc（cOlumn）确定的是第一行是否为0， fr确定的是第一列是否为0
+/*
+
+public class Solution {
+    public void setZeroes(int[][] matrix) {
+        boolean fr = false, fc = false;
+        
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(matrix[i][j] == 0){
+                    if(i == 0) fr = true;
+                    if(j == 0) fc = true;
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        
+        for(int i = 1; i < matrix.length; i++){
+            for(int j = 1; j < matrix[0].length; j++){
+                if(matrix[i][0] == 0 || matrix[0][j] == 0){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        if(fc){
+            for(int i = 0; i < matrix.length; i++){
+                matrix[i][0] = 0;
+            }
+        }
+        
+        if(fr){
+            for(int j = 0; j < matrix[0].length; j ++){
+                matrix[0][j] = 0;
+            }
+        }
+    }
+}
+
