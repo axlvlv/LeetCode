@@ -23,6 +23,8 @@ Method: Two pointer 实际是3根指针 一个left从0开始，一个right从最
 
 按照这样的方式，我们就会把所有的0放置在数组的最前方，所有的2放置在数组的最后方，那么中间自然就是剩下来的1了。要注意i = left, i <= righ，
 否则会越界先算2的情况，因为这样子可以快一点，直接把2往后调
+
+？？？为什么要用right 和left呢？left,right改变上面括号里的也会改变吗
 /*
 
 public class Solution {
