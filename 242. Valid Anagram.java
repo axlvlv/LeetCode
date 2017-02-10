@@ -10,15 +10,14 @@ You may assume the string contains only lowercase alphabets.
 
 Follow up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
-/*
 
-/*
+
+
 Method
 Approach #1 (Sorting) 
 An anagram is produced by rearranging the letters of ss into tt. 
 Therefore, if tt is an anagram of ss, sorting both strings will result in two identical strings. 
 Furthermore, if ss and tt have different lengths, tt must not be an anagram of ss and we can return early.
-/*
 
 /*
 Complexity analysis
@@ -35,6 +34,13 @@ It is a language dependent detail.
 It depends on how the function is designed. For example, the function parameter types can be changed to char[].
 /*
 
+/*
+Basic Java
+Arrays.equals(char[] a, char[] a2)
+Arrays.sort(char[] a, char[] a2) 不可以直接用string
+/*
+
+
 public boolean isAnagram(String s, String t) {
     if (s.length() != t.length()) {
         return false;
@@ -47,7 +53,7 @@ public boolean isAnagram(String s, String t) {
 }
 
 
-/*
+
 Method
 Approach #2 (Hash Table)
 To examine if tt is a rearrangement of s, we can count occurrences of each letter in the two strings and compare them. 
@@ -99,3 +105,96 @@ A hash table is a more generic solution and could adapt to any range of characte
 
 
 
+
+
+
+
+My own code:
+Use HashTable:
+Your runtime beats 18.89% of java submissions.
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s == null || t == null){
+            return false;
+        }
+        
+        if(s.length() != t.length()){
+            return false;
+        }
+        
+        Map<Character,Integer> map = new HashMap<>();
+        char[] chars1 = s.toCharArray();
+        char[] chars2 = t.toCharArray();
+        
+        for(char c : chars1){
+            if(!map.containsKey(c)){
+                map.put(c, 1);
+            }else{
+                map.put(c, map.get(c) + 1);
+            }
+        }
+        
+        for(char c : chars2){
+            if(!map.containsKey(c) || map.get(c) == 0){
+                return false;
+            }else{
+                map.put(c, map.get(c) - 1);
+            }
+        }
+        
+        return true;
+        
+    }
+}
+
+Use an array instead of hashmap because we know the number is small, only 26 
+Your runtime beats 31.60% of java submissions.
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s == null || t == null){
+            return false;
+        }
+        
+        if(s.length() != t.length()){
+            return false;
+        }
+        
+        int[] count = new int[26];
+        for(int i = 0; i < s.length(); i++){
+            count[s.charAt(i) - 'a']++;
+            count[t.charAt(i) -'a']--;
+        }
+        
+        for(int i : count){
+            if(i != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+Use Sort
+You are here! 
+Your runtime beats 51.49% of java submissions.
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s == null || t == null){
+            return false;
+        }
+        
+        if(s.length() != t.length()){
+            return false;
+        }
+        
+        char[] sChar = s.toCharArray();
+        char[] tChar = t.toCharArray();
+        
+        Arrays.sort(sChar);
+        Arrays.sort(tChar);
+        
+        return Arrays.equals(sChar, tChar);
+        
+        
+    }
+}
