@@ -44,6 +44,7 @@ map.get(keyStr).add(s);
 map.values()
 Returns:
 a view of the values contained in this map
+这里一定要用string.valueOf()因为它会返回一个string， 如果用了toString()返回的则是一个新的Object会报错
 /*
 
 public class Solution {
