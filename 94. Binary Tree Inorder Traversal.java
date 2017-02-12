@@ -36,3 +36,61 @@ public class Solution {
         
     }
 }
+
+//Iterative  不停地向左到最后，把最后的值从stack中Pop出来，加到res中，然后找右边，右边的话有左边的还是一样继续往左，如果没有就加到stack中，
+左边的其实会被全部先Pop出来剩下的就都是右边的和根节点了
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if(root == null){
+            return res;
+        }
+        
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        
+        TreeNode cur = root;
+        
+        
+        while(cur != null || !stack.isEmpty()){
+            while(cur != null){
+                stack.add(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            res.add(cur.val);
+            cur = cur.right;
+        }
+        
+        return res;
+    }
+}
+
+
+
+//Recursive
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if(root == null){
+            return res;
+        }
+        helper(root, res);
+        return res;
+    }
+    
+    private void helper(TreeNode root, List<Integer> res){
+        if(root == null){
+            return;
+        }
+        
+        if(root.left != null){
+            helper(root.left, res);
+        }
+        
+        res.add(root.val);
+        
+        if(root.right != null){
+            helper(root.right, res);
+        }
+    }
+}
