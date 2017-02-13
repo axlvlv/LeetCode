@@ -7,21 +7,36 @@ You may assume that duplicates do not exist in the tree.
 
 /*
 Method
-假设树的先序遍历是12453687，中序遍历是42516837。
-这里最重要的一点就是先序遍历可以提供根的所在，而根据中序遍历的性质知道根的所在就可以将序列分为左右子树。
-比如上述例子，我们知道1是根，所以根据中序遍历的结果425是左子树，而6837就是右子树。
-接下来根据切出来的左右子树的长度又可以在先序便利中确定左右子树对应的子序列（先序遍历也是先左子树后右子树）。
-根据这个流程，左子树的先序遍历和中序遍历分别是245和425，右子树的先序遍历和中序遍历则是3687和6837，我们重复以上方法，可以继续找到根和左右子树，
-直到剩下一个元素。可以看出这是一个比较明显的递归过程，对于寻找根所对应的下标，我们可以先建立一个HashMap，
-以免后面需要进行线行搜索，这样每次递归中就只需要常量操作就可以完成对根的确定和左右子树的分割。
+The crucial observation to this problem is the tree’s root always coincides with the first element in preorder traversal. 
+This must be true because in preorder traversal you always traverse the root node before its children. 
+The root node’s value appear to be 7 from the binary tree above.
 
-Mark the first element of the preorder result as it is the root elment
-Mark the root element in the inorder result
-Root element will divide the inorder result into left sub tree and right sub tree
-Draw the tree
+We easily find that 7 appears as the 4th index in the inorder sequence. 
+(Notice that earlier we assumed that duplicates are not allowed in the tree, so there would be no ambiguity). 
+For inorder traversal, we visit the left subtree first, then root node, and followed by the right subtree. 
+Therefore, all elements left of 7 must be in the left subtree and all elements to the right must be in the right subtree.
 
-inorder = {10,30,40,50,60,70,90}
-preorder = {50,30,10,40,70,60,90}
+We left out some details on how we search the root value’s index in the inorder sequence. 
+How about a simple linear search? If we assume that the constructed binary tree is always balanced, 
+then we can guarantee the run time complexity to be O(N log N), where N is the number of nodes. 
+However, this is not necessarily the case and the constructed binary tree can be skewed to the left/right, 
+which has the worst complexity of O(N2).
+
+A more efficient way is to eliminate the search by using an efficient look-up mechanism such as hash table. 
+By hashing an element’s value to its corresponding index in the inorder sequence, we can do look-ups in constant time. 
+Now, we need only O(N) time to construct the tree, which theoretically is the most efficient way.
+
+inorder = {10,     30,       40,   50,    60,      70,        90}
+                root.left         root          root.right
+preorder = {50,   30,        10,  40,    70,        60,  90}
+           root  root.left             root.right
+           
+           inroot - instart = 一颗子树的长度
+           
+           pre: 7, (10, 4, 3, 1), (2, 8, 3)
+           in: (4,10,3,1),7,(11,8,2)
+           
+           
 The crucial observation to this problem is the tree’s root always coincides with the first element in preorder traversal.
 
               50
