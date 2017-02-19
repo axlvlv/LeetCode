@@ -13,6 +13,15 @@ You should return [1,2,3,6,9,8,7,4,5].
 /*
 
 /*
+Method
+当只有1行或者1列的时候，只执行上面两个如果要向上或者向左走， 
+要保证（rowStart <= rowEnd)(colStart <= colEnd)，这里要检验保证不会重复出现
+比如[1,2][3,4]这种情况，rowStart < rowEnd
+
+
+？？？？？？？？？？？？？
+有一个问题是找不到colStart > colEnd的反例
+/*
 Time Complexity
 因为每个元素访问一次，所以时间复杂度是O(m*n)，m，n是分别是矩阵的行数和列数，空间复杂度是O(1)。
 /*
