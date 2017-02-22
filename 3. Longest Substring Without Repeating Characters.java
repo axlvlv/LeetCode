@@ -23,6 +23,7 @@ Method: Maximum Sliding Window
 Use a hash set to track the longest substring without repeating characters so far, use a fast pointer j to see if character j
 is in the hash set or not, if not, add it to the hash set, move j forward and update the max length, otherwise, delete from
 the head by using a slow pointer until we can put character j to the hash set.
+没有出现过J就一直加，出现过了I就一直加，直到没有出现过为止
 /*
 
 /*
