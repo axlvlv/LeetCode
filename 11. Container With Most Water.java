@@ -8,6 +8,7 @@ Note: You may not slant the container and n is at least 2.
 
 /*
 Method
+http://blog.csdn.net/wzy_1988/article/details/17248209
 AKA, the general idea to find some max is to go through all cases where max value can possibly occur 
 and keep updating the max value.
 The efficiency of the scan depends on the size of cases you plan to scan.
