@@ -22,6 +22,7 @@ Output: 1
 /*
 Method 
 Priority Queue维护一个最小堆（默认）
+PriorityQueue<Integer> queue = new PriorityQueue<>(10, Collections.reverseOrder());变成了最大堆
 /*
 
 public class Solution {
