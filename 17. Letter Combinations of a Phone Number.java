@@ -14,27 +14,29 @@ string.charAt();
 /*
 
 public class Solution {
-    private static final String[] KEYS = {"", "", "abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    public static String[] keys = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
     public List<String> letterCombinations(String digits) {
-        List<String> res = new ArrayList<String>();
-        
-        if(digits.isEmpty()){
+        List<String> res = new ArrayList<>();
+        if(digits == null || digits.length() == 0){
             return res;
         }
-        
-        combination(res, "", digits, 0);
+        StringBuilder sb = new StringBuilder();
+        combination(res, sb, digits, 0);
         return res;
     }
-        
-        private void combination(List<String> res, String list, String digits, int offset){
-            if(list.length() == digits.length()){
-                res.add(list);
-                return;
-            }
-            
-            String letters = KEYS[digits.charAt(offset) - '0'];
-            for(int i = 0; i < letters.length(); i++){
-                combination(res, list + letters.charAt(i), digits, offset + 1);
-            }
+    
+    private void combination(List<String> res, StringBuilder sb, String digits, int index){
+        if(index == digits.length()){
+            res.add(sb.toString());
+            return;
         }
+        
+        String letters = keys[digits.charAt(index) - '0'];
+        for(int i = 0; i < letters.length();i++){
+            sb.append(letters.charAt(i));
+            combination(res, sb, digits, index + 1);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        
+    }
 }
