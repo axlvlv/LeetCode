@@ -14,6 +14,7 @@ For example, given n = 3, a solution set is:
 
 /*
 Method
+http://stackoverflow.com/questions/23413881/understanding-function-to-generate-parentheses/23414519
 通过向string插入"("和")"直到两者的数量都为n，则一个combination构建完成。如何保证这个combination是well-formed？在插入过程中的任何时候：
 
 1. 只要"("的数量没有超过n，都可以插入"("。
