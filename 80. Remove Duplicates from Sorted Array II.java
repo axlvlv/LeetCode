@@ -41,3 +41,31 @@ public class Solution {
     }
 }
 
+public class Solution {
+    /**
+     * @param A: a array of integers
+     * @return : return an integer
+     */
+    public int removeDuplicates(int[] nums) {
+        // write your code here
+        int len = nums.length;
+        if(len < 3){
+            return len;
+        }
+        int m = 1, count = 1;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] == nums[i - 1]){
+                count ++;
+                if(count < 3){
+                    nums[m++] = nums[i];
+                }else{
+                    continue;
+                }
+            }else{
+                count = 1;
+                nums[m++] = nums[i];
+            }
+        }
+        return m;
+    }
+}
